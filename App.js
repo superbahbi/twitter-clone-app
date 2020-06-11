@@ -9,6 +9,9 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import AuthScreen from "./src/screens/AuthScreen";
 import TweetScreen from "./src/screens/TweetScreen";
+import SearchScreen from "./src/screens/SearchScreen";
+import NotificationScreen from "./src/screens/NotificationScreen";
+import MessageScreen from "./src/screens/MessageScreen";
 const switchNavigator = createSwitchNavigator({
   // ResolveAuth: AuthScreen,
   loginFlow: createStackNavigator({
@@ -16,9 +19,12 @@ const switchNavigator = createSwitchNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
   }),
-  // mainFlow: createBottomTabNavigator({
-  //   Tweet: TweetScreen,
-  // }),
+  mainFlow: createBottomTabNavigator({
+    Tweet: TweetScreen,
+    Search: SearchScreen,
+    Notification: NotificationScreen,
+    Message: MessageScreen,
+  }),
 });
 const App = createAppContainer(switchNavigator);
 export default () => {
