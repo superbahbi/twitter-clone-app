@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
+import NavLink from "../components/NavLink";
 // import { Context as AuthContext } from "../context/AuthContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 const SignupScreen = ({ navigation }) => {
@@ -22,7 +23,7 @@ const SignupScreen = ({ navigation }) => {
       <View>
         <FontAwesome5
           style={{ alignSelf: "center" }}
-          name="dog"
+          name="paw"
           size={24}
           color="#1DA1F2"
         />
@@ -61,15 +62,17 @@ const SignupScreen = ({ navigation }) => {
           autoCorrect={false}
         />
       </View>
-
       <View>
         <Text style={styles.agreement}>
           By signing up, you agree to the Terms of Service and Privacy Policy,
           including Cookie Use. Others will be able to find you by email or
           phone number when provided Privacy Options
         </Text>
+
         <Button buttonStyle={styles.signUpButton} title="Sign up" />
       </View>
+
+      <NavLink routeName="Signin" text="Do you have an account? Sign in here" />
     </View>
   );
 };
@@ -82,7 +85,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-around",
-
     margin: 40,
   },
   title: {
