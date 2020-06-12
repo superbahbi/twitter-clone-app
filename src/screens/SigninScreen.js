@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
-// import { Context as AuthContext } from "../context/AuthContext";
+import { Context as AuthContext } from "../context/AuthContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
 
 const SigninScreen = ({ navigation }) => {
-  //   const { state, signin, clearErrorMessage } = useContext(AuthContext);
+  const { state, signin, clearErrorMessage } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
       <View>
@@ -22,29 +24,34 @@ const SigninScreen = ({ navigation }) => {
       <View>
         <Text style={styles.title}>Log in to Twitter</Text>
       </View>
-      {/* <NavigationEvents onWillFocus={clearErrorMessage} /> */}
-      {/* <AuthForm
-        headerText="Sign in for Tracker"
-        // errorMessage={state.errorMessage}
-        submitButtonText="Sign in"
-        // onSubmit={signin}
-      /> */}
+      <NavigationEvents onWillFocus={clearErrorMessage} />
 
+      {state.errorMessage ? (
+        <Text style={styles.errorMessage}>{state.errorMessage}</Text>
+      ) : null}
       <View>
         <Input
           placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
           autoCapitalize="none"
           autoCorrect={false}
         />
         <Input
           secureTextEntry
           placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
           autoCapitalize="none"
           autoCorrect={false}
         />
       </View>
       <View>
-        <Button buttonStyle={styles.signInButton} title="Log in" />
+        <Button
+          buttonStyle={styles.signInButton}
+          title="Log in"
+          onPress={() => signin({ username, password })}
+        />
       </View>
       <View>
         <NavLink
@@ -75,6 +82,12 @@ const styles = StyleSheet.create({
     color: "#1DA1F2",
     borderRadius: 50,
     marginTop: 5,
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: "red",
+    marginLeft: 15,
+    marginTop: 15,
   },
 });
 
