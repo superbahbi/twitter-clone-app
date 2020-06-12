@@ -9,7 +9,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/paw-solid-white-64.png",
     "splash": {
       "image": "./assets/paw-solid-blue-1000.png",
       "resizeMode": "contain",
