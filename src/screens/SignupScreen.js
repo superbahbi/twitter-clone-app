@@ -3,17 +3,17 @@ import { View, StyleSheet } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
 import NavLink from "../components/NavLink";
-// import { Context as AuthContext } from "../context/AuthContext";
+import { Context as AuthContext } from "../context/AuthContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 const SignupScreen = ({ navigation }) => {
-  //   const { state, signup, clearErrorMessage } = useContext(AuthContext);
+  const { state, signup, clearErrorMessage } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   return (
     <View style={styles.container}>
-      {/* <NavigationEvents onWillFocus={clearErrorMessage} /> */}
+      <NavigationEvents onWillFocus={clearErrorMessage} />
       {/* <AuthForm
         headerText="Create your account"
         errorMessage={state.errorMessage}
@@ -31,6 +31,9 @@ const SignupScreen = ({ navigation }) => {
       <View>
         <Text style={styles.title}>Create your account</Text>
       </View>
+      {state.errorMessage ? (
+        <Text style={styles.errorMessage}>{state.errorMessage}</Text>
+      ) : null}
       <View>
         <Input
           placeholder="Username"
@@ -69,7 +72,11 @@ const SignupScreen = ({ navigation }) => {
           phone number when provided Privacy Options
         </Text>
 
-        <Button buttonStyle={styles.signUpButton} title="Sign up" />
+        <Button
+          buttonStyle={styles.signUpButton}
+          title="Sign up"
+          onPress={() => signup({ username, password, email, name })}
+        />
       </View>
 
       <NavLink routeName="Signin" text="Do you have an account? Sign in here" />

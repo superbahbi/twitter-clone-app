@@ -29,9 +29,14 @@ const tryLocalSignin = (dispatch) => async () => {
 const clearErrorMessage = (dispatch) => () => {
   dispatch({ type: "clear_error_message" });
 };
-const signup = (dispatch) => async ({ username, password }) => {
+const signup = (dispatch) => async ({ username, password, email, name }) => {
   try {
-    const response = await tweetApi.post("/signup", { username, password });
+    const response = await tweetApi.post("/signup", {
+      username,
+      password,
+      email,
+      name,
+    });
     await AsyncStorage.setItem("token", response.data.token);
     dispatch({ type: "signin", payload: response.data.token });
     navigate("Tweet");

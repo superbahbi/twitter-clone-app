@@ -16,7 +16,7 @@ import MessageScreen from "./src/screens/MessageScreen";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 const switchNavigator = createSwitchNavigator({
-  // ResolveAuth: AuthScreen,
+  Auth: AuthScreen,
   loginFlow: createStackNavigator({
     Landing: LandingScreen,
     Signup: SignupScreen,

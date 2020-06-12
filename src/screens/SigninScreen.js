@@ -4,7 +4,6 @@ import { Text, Button, Input } from "react-native-elements";
 import { NavigationEvents } from "react-navigation";
 import { Context as AuthContext } from "../context/AuthContext";
 import { FontAwesome5 } from "@expo/vector-icons";
-import AuthForm from "../components/AuthForm";
 import NavLink from "../components/NavLink";
 
 const SigninScreen = ({ navigation }) => {
@@ -22,7 +21,7 @@ const SigninScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        <Text style={styles.title}>Log in to Twitter</Text>
+        <Text style={styles.title}>Log in to Not Twitter</Text>
       </View>
       <NavigationEvents onWillFocus={clearErrorMessage} />
 
