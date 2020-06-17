@@ -7,9 +7,10 @@ import { Feather } from "@expo/vector-icons";
 
 const MessageScreen = () => {
   const { signout } = useContext(AuthContext);
+
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
-      <Text>MessageScreen</Text>
+      <Text>Text</Text>
       <Button title="Sign Out" onPress={signout} />
     </SafeAreaView>
   );

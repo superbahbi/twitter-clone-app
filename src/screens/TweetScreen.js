@@ -1,35 +1,38 @@
-import React from "react";
-import tweetApi from "../api/tweetApi";
-import { View, StyleSheet, Image } from "react-native";
-import {
-  Text,
-  Card,
-  ListItem,
-  Button,
-  Icon,
-  Header,
-} from "react-native-elements";
+import React, { useContext } from "react";
+import { NavigationEvents } from "react-navigation";
+import { Context as TweetContext } from "../context/TweetContext";
+import ListItem from "../components/ListItem";
+import MenuHeader from "../components/MenuHeader";
+import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, Card, Button, Avatar } from "react-native-elements";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
 
 const TweetScreen = () => {
+  const { state, fetchTweet } = useContext(TweetContext);
   return (
     <>
-      <Header
-        barStyle="light-content"
-        leftComponent={<Feather name="circle" size={20} color="#1DA1F2" />}
-        centerComponent={<FontAwesome5 name="paw" size={20} color="#1DA1F2" />}
-        rightComponent={<Feather name="star" size={20} color="#1DA1F2" />}
-        containerStyle={{
-          backgroundColor: "#fff",
-          justifyContent: "space-around",
-          height: 50,
-          paddingTop: 0,
+      <NavigationEvents onWillFocus={fetchTweet} />
+      <MenuHeader />
+      <FlatList
+        data={state}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+            // onPress={() =>
+            //   navigation.navigate("TrackDetail", { _id: item._id })
+            // }
+            >
+              <ListItem
+                avatar={item.avatar}
+                username={item.username}
+                name={item.name}
+                content={item.content}
+              />
+            </TouchableOpacity>
+          );
         }}
       />
-      <Text>Tweet</Text>
-      <Card containerStyle={styles.card}>
-        <ListItem key={0} roundAvatar title="bahbi" avatar="none" />
-      </Card>
     </>
   );
 };
