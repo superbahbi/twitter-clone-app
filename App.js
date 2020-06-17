@@ -15,6 +15,7 @@ import NotificationScreen from "./src/screens/NotificationScreen";
 import MessageScreen from "./src/screens/MessageScreen";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { Provider as TweetProvider } from "./src/context/TweetContext";
 const switchNavigator = createSwitchNavigator({
   Auth: AuthScreen,
   loginFlow: createStackNavigator({
@@ -32,12 +33,14 @@ const switchNavigator = createSwitchNavigator({
 const App = createAppContainer(switchNavigator);
 export default () => {
   return (
-    <AuthProvider>
-      <App
-        ref={(navigator) => {
-          setNavigator(navigator);
-        }}
-      />
-    </AuthProvider>
+    <TweetProvider>
+      <AuthProvider>
+        <App
+          ref={(navigator) => {
+            setNavigator(navigator);
+          }}
+        />
+      </AuthProvider>
+    </TweetProvider>
   );
 };
