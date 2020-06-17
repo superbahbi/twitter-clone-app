@@ -4,10 +4,8 @@ import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Card, Button, Avatar, Header } from "react-native-elements";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { Context as AuthContext } from "../context/AuthContext";
-const MenuHeader = () => {
-  // const { state } = useContext(AuthContext);
-  // const { user } = state;
-  // console.log(user.profile.avatar.filename);
+const MenuHeader = ({ user }) => {
+  const { profile } = user;
   return (
     <View>
       <Header
@@ -17,7 +15,7 @@ const MenuHeader = () => {
             rounded
             size="small"
             source={{
-              uri: "user.profile.avatar.filename",
+              uri: profile.avatar.filename,
             }}
           />
         }

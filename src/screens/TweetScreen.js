@@ -6,15 +6,18 @@ import MenuHeader from "../components/MenuHeader";
 import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Card, Button, Avatar } from "react-native-elements";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
-
+import { AsyncStorage } from "react-native";
 const TweetScreen = () => {
-  const { state, fetchTweet } = useContext(TweetContext);
+  const { state, fetchTweet, fetchUser } = useContext(TweetContext);
+
   return (
     <>
+      <NavigationEvents onWillFocus={fetchUser} />
       <NavigationEvents onWillFocus={fetchTweet} />
-      <MenuHeader />
+
+      <MenuHeader user={state.user} />
       <FlatList
-        data={state}
+        data={state.tweet}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
