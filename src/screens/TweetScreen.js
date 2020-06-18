@@ -4,12 +4,10 @@ import { Context as TweetContext } from "../context/TweetContext";
 import ListItem from "../components/ListItem";
 import MenuHeader from "../components/MenuHeader";
 import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, Card, Button, Avatar } from "react-native-elements";
-import { Feather, FontAwesome5 } from "@expo/vector-icons";
-import { AsyncStorage } from "react-native";
-const TweetScreen = () => {
+import { Icon } from "react-native-elements";
+import { Feather } from "@expo/vector-icons";
+const TweetScreen = ({ navigation }) => {
   const { state, fetchTweet, fetchUser } = useContext(TweetContext);
-
   return (
     <>
       <NavigationEvents onWillFocus={fetchUser} />
@@ -31,11 +29,17 @@ const TweetScreen = () => {
                 username={item.username}
                 name={item.name}
                 content={item.content}
+                timestamp={item.timestamp}
               />
             </TouchableOpacity>
           );
         }}
       />
+      <View style={styles.tweet}>
+        <TouchableOpacity onPress={() => navigation.navigate("AddTweet")}>
+          <Icon reverse name="addfile" type="antdesign" color="#1DA1F2" />
+        </TouchableOpacity>
+      </View>
     </>
   );
 };
@@ -51,6 +55,16 @@ const styles = StyleSheet.create({
   card: {
     padding: 0,
     margin: 0,
+  },
+  tweet: {
+    //Here is the trick
+    position: "absolute",
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 30,
+    bottom: 30,
   },
 });
 export default TweetScreen;

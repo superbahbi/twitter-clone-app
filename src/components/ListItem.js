@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Avatar, Text, Icon } from "react-native-elements";
-const ListItem = ({ avatar, username, name, content }) => {
+import moment from "moment";
+const ListItem = ({ avatar, username, name, content, timestamp }) => {
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
@@ -17,16 +18,37 @@ const ListItem = ({ avatar, username, name, content }) => {
         <View style={styles.userInfo}>
           <Text style={styles.name}>{name} </Text>
           <Text style={styles.username}>{`@${username}`} </Text>
+          <Text style={styles.username}>· {moment(timestamp).fromNow()} </Text>
         </View>
         <View style={styles.content}>
           <Text>{content}</Text>
         </View>
 
         <View style={styles.social}>
-          <Icon name="comment" type="evilicon" color="darkgrey" />
-          <Icon name="retweet" type="evilicon" color="darkgrey" />
-          <Icon name="heart" type="evilicon" color="darkgrey" />
-          <Icon name="share-google" type="evilicon" color="darkgrey" />
+          <Icon
+            name="comment"
+            type="evilicon"
+            color="darkgrey"
+            onPress={() => console.log("hello")}
+          />
+          <Icon
+            name="retweet"
+            type="evilicon"
+            color="darkgrey"
+            onPress={() => console.log("hello")}
+          />
+          <Icon
+            name="heart"
+            type="evilicon"
+            color="darkgrey"
+            onPress={() => console.log("hello")}
+          />
+          <Icon
+            name="share-google"
+            type="evilicon"
+            color="darkgrey"
+            onPress={() => console.log("hello")}
+          />
         </View>
       </View>
     </View>

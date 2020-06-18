@@ -16,7 +16,6 @@ const fetchTweet = (dispatch) => async () => {
 };
 const fetchUser = (dispatch) => async () => {
   const response = await tweetApi.get("/user");
-  console.log(response.data);
   dispatch({ type: "fetch_user", payload: response.data });
 };
 const createTweet = (dispatch) => async (name, locations) => {
