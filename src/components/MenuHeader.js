@@ -15,7 +15,7 @@ const MenuHeader = ({ user }) => {
             rounded
             size="small"
             source={{
-              uri: profile.avatar.filename,
+              uri: profile ? profile.avatar.filename : null,
             }}
           />
         }
