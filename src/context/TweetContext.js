@@ -6,6 +6,10 @@ const tweetReducer = (state, action) => {
       return { ...state, tweet: action.payload };
     case "fetch_user":
       return { ...state, user: action.payload };
+    case "add_name":
+      return { ...state, newTweet: action.payload };
+    case "reset":
+      return { ...state, newTweet: "" };
     default:
       return state;
   }
@@ -18,11 +22,17 @@ const fetchUser = (dispatch) => async () => {
   const response = await tweetApi.get("/user");
   dispatch({ type: "fetch_user", payload: response.data });
 };
-const createTweet = (dispatch) => async (name, locations) => {
-  await tweetApi.post("/tweet", { name, locations });
+const createTweet = (dispatch) => async (content) => {
+  await tweetApi.post("/tweet", { content });
+};
+const addTweet = (dispatch) => (content) => {
+  dispatch({ type: "add_name", payload: content });
+};
+const reset = (dispatch) => () => {
+  dispatch({ type: "reset" });
 };
 export const { Context, Provider } = createDataContext(
   tweetReducer,
-  { fetchTweet, fetchUser, createTweet },
-  { tweet: [], user: {} }
+  { fetchTweet, fetchUser, createTweet, addTweet, reset },
+  { tweet: [], user: {}, newTweet: "" }
 );

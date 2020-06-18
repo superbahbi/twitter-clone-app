@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { Text, Icon, Header, Button, Avatar } from "react-native-elements";
-import { Feather, EvilIcons } from "@expo/vector-icons";
+import { Icon, Header, Button, Avatar } from "react-native-elements";
+import { EvilIcons } from "@expo/vector-icons";
+import { Context as TweetContext } from "../context/TweetContext";
+import useSaveTweet from "../hooks/useSaveTweet";
 const AddTweetScreen = ({ navigation }) => {
+  const {
+    state: { newTweet },
+    createTweet,
+    addTweet,
+  } = useContext(TweetContext);
+  const [saveTweet] = useSaveTweet();
   return (
     <View style={styles.container}>
       <Header
@@ -16,7 +24,7 @@ const AddTweetScreen = ({ navigation }) => {
           <Button
             buttonStyle={styles.button}
             title="Tweet"
-            onPress={() => navigation.navigate("AddTweet")}
+            onPress={saveTweet}
           />
         }
         containerStyle={{
@@ -39,6 +47,9 @@ const AddTweetScreen = ({ navigation }) => {
         </View>
         <View style={styles.textInput}>
           <TextInput
+            style={styles.input}
+            value={newTweet}
+            onChangeText={addTweet}
             autoFocus={true}
             placeholder="What's Happening?"
             multiline={true}
@@ -93,7 +104,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   avatar: {
-    margin: 10,
+    margin: 20,
   },
   button: {
     color: "#1DA1F2",
@@ -102,10 +113,11 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    borderColor: "red",
-    borderWidth: 1,
     fontSize: 30,
     marginRight: 10,
+  },
+  input: {
+    fontSize: 20,
   },
   attachment: {
     flex: 1,
