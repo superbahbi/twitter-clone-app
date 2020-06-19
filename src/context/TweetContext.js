@@ -31,8 +31,13 @@ const addTweet = (dispatch) => (content) => {
 const reset = (dispatch) => () => {
   dispatch({ type: "reset" });
 };
+const deleteTweet = (dispatch) => async (_id) => {
+  const response = await tweetApi.delete("/tweet", { data: { _id } });
+  dispatch({ type: "add_name", payload: _id });
+};
+
 export const { Context, Provider } = createDataContext(
   tweetReducer,
-  { fetchTweet, fetchUser, createTweet, addTweet, reset },
+  { fetchTweet, fetchUser, createTweet, deleteTweet, addTweet, reset },
   { tweet: [], user: {}, newTweet: "" }
 );

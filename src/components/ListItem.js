@@ -1,8 +1,10 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Avatar, Text, Icon } from "react-native-elements";
 import moment from "moment";
-const ListItem = ({ avatar, username, name, content, timestamp }) => {
+import useDeleteTweet from "../hooks/useDeleteTweet";
+const ListItem = ({ avatar, _id, username, name, content, timestamp }) => {
+  const [deleteTweet] = useDeleteTweet();
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
@@ -43,12 +45,9 @@ const ListItem = ({ avatar, username, name, content, timestamp }) => {
             color="darkgrey"
             onPress={() => console.log("hello")}
           />
-          <Icon
-            name="share-google"
-            type="evilicon"
-            color="darkgrey"
-            onPress={() => console.log("hello")}
-          />
+          <TouchableOpacity onPress={() => deleteTweet(_id)}>
+            <Icon name="share-google" type="evilicon" color="darkgrey" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

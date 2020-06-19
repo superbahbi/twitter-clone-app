@@ -6,8 +6,10 @@ import MenuHeader from "../components/MenuHeader";
 import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
+
 const TweetScreen = ({ navigation }) => {
   const { state, fetchTweet, fetchUser } = useContext(TweetContext);
+
   return (
     <>
       <NavigationEvents onWillFocus={fetchUser} />
@@ -26,6 +28,7 @@ const TweetScreen = ({ navigation }) => {
             >
               <ListItem
                 avatar={item.avatar}
+                _id={item._id}
                 username={item.username}
                 name={item.name}
                 content={item.content}
