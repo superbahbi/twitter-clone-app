@@ -6,7 +6,7 @@ import { Context as TweetContext } from "../context/TweetContext";
 import useSaveTweet from "../hooks/useSaveTweet";
 const AddTweetScreen = ({ navigation }) => {
   const {
-    state: { newTweet },
+    state: { newTweet, user },
     createTweet,
     addTweet,
   } = useContext(TweetContext);
@@ -41,7 +41,7 @@ const AddTweetScreen = ({ navigation }) => {
             rounded
             size="medium"
             source={{
-              uri: "profile ? profile.avatar.filename : null",
+              uri: user ? user.profile.avatar.filename : null,
             }}
           />
         </View>
