@@ -3,6 +3,7 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createDrawerNavigator } from "react-navigation-drawer";
 import { setNavigator } from "./src/navigationRef";
 
 import LandingScreen from "./src/screens/LandingScreen";
@@ -14,10 +15,29 @@ import SearchScreen from "./src/screens/SearchScreen";
 import NotificationScreen from "./src/screens/NotificationScreen";
 import MessageScreen from "./src/screens/MessageScreen";
 import AddTweetScreen from "./src/screens/AddTweetScreen";
-
+import ProfileScreen from "./src/screens/ProfileScreen";
+import SignoutScreen from "./src/screens/SignoutScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as TweetProvider } from "./src/context/TweetContext";
 
+const DrawerNavigator = createDrawerNavigator(
+  {
+    Profile: ProfileScreen,
+    List: { screen: TweetScreen },
+    Topics: { screen: TweetScreen },
+    Bookmarks: { screen: TweetScreen },
+    Moments: { screen: TweetScreen },
+    "Follower requests": { screen: TweetScreen },
+    "Settings and privacy": { screen: TweetScreen },
+    "Help Center": { screen: TweetScreen },
+    "Sign Out": SignoutScreen,
+  },
+  {
+    drawerWidth: 300,
+    drawerPosition: "left",
+    initialRouteName: "Profile",
+  }
+);
 const switchNavigator = createSwitchNavigator({
   Auth: AuthScreen,
   AddTweet: AddTweetScreen,
@@ -32,6 +52,7 @@ const switchNavigator = createSwitchNavigator({
     Notification: NotificationScreen,
     Message: MessageScreen,
   }),
+  profile: DrawerNavigator,
 });
 const App = createAppContainer(switchNavigator);
 export default () => {
