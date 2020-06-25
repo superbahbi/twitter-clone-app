@@ -33,6 +33,8 @@ const TweetScreen = ({ navigation }) => {
                 name={item.name}
                 content={item.content}
                 timestamp={item.timestamp}
+                likes={item.likes}
+                user={state.user}
               />
             </TouchableOpacity>
           );

@@ -3,8 +3,30 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Avatar, Text, Icon } from "react-native-elements";
 import moment from "moment";
 import useDeleteTweet from "../hooks/useDeleteTweet";
-const ListItem = ({ avatar, _id, username, name, content, timestamp }) => {
+import useLikeTweet from "../hooks/useLikeTweet";
+const ListItem = ({
+  avatar,
+  _id,
+  username,
+  name,
+  content,
+  timestamp,
+  likes,
+  user,
+}) => {
   const [deleteTweet] = useDeleteTweet();
+  const [likeTweet] = useLikeTweet();
+
+  function userlike(likes) {
+    let status = false;
+    Object.keys(likes).map((key, index) => {
+      if (likes[key]._id === user._id) {
+        status = true;
+      }
+      return null;
+    });
+    return status;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
@@ -39,12 +61,13 @@ const ListItem = ({ avatar, _id, username, name, content, timestamp }) => {
             color="darkgrey"
             onPress={() => console.log("hello")}
           />
-          <Icon
-            name="heart"
-            type="evilicon"
-            color="darkgrey"
-            onPress={() => console.log("hello")}
-          />
+          <TouchableOpacity onPress={() => likeTweet(_id)}>
+            <Icon
+              name="heart"
+              type="evilicon"
+              color={userlike(likes) ? "red" : "darkgrey"}
+            />
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => deleteTweet(_id)}>
             <Icon name="share-google" type="evilicon" color="darkgrey" />
           </TouchableOpacity>

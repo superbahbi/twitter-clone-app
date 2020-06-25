@@ -9,7 +9,7 @@ const tweetReducer = (state, action) => {
     case "add_name":
       return { ...state, newTweet: action.payload };
     case "reset":
-      return { ...state, newTweet: "" };
+      return { ...state, newTweet: "", refresh: false };
     default:
       return state;
   }
@@ -32,12 +32,25 @@ const reset = (dispatch) => () => {
   dispatch({ type: "reset" });
 };
 const deleteTweet = (dispatch) => async (_id) => {
-  const response = await tweetApi.delete("/tweet", { data: { _id } });
-  dispatch({ type: "add_name", payload: _id });
+  await tweetApi.delete("/tweet", { data: { _id } });
+  const response = await tweetApi.get("/tweet");
+  dispatch({ type: "fetch_tweet", payload: response.data });
+};
+const likeTweet = (dispatch) => async (_id) => {
+  const response = await tweetApi.post("/tweet/like", { _id });
+  dispatch({ type: "fetch_tweet", payload: response.data });
 };
 
 export const { Context, Provider } = createDataContext(
   tweetReducer,
-  { fetchTweet, fetchUser, createTweet, deleteTweet, addTweet, reset },
-  { tweet: [], user: {}, newTweet: "" }
+  {
+    fetchTweet,
+    fetchUser,
+    createTweet,
+    deleteTweet,
+    addTweet,
+    reset,
+    likeTweet,
+  },
+  { tweet: [], user: {}, newTweet: ""}
 );
