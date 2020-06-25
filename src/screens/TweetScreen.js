@@ -29,6 +29,7 @@ const TweetScreen = ({ navigation }) => {
               <ListItem
                 avatar={item.avatar}
                 _id={item._id}
+                userId={item.userId}
                 username={item.username}
                 name={item.name}
                 content={item.content}

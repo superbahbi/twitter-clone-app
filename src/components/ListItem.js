@@ -7,6 +7,7 @@ import useLikeTweet from "../hooks/useLikeTweet";
 const ListItem = ({
   avatar,
   _id,
+  userId,
   username,
   name,
   content,
@@ -68,9 +69,14 @@ const ListItem = ({
               color={userlike(likes) ? "red" : "darkgrey"}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deleteTweet(_id)}>
+          <TouchableOpacity>
             <Icon name="share-google" type="evilicon" color="darkgrey" />
           </TouchableOpacity>
+          {userId === user._id ? (
+            <TouchableOpacity onPress={() => deleteTweet(_id)}>
+              <Icon name="trash" type="evilicon" color="darkgrey" />
+            </TouchableOpacity>
+          ) : null}
         </View>
       </View>
     </View>
