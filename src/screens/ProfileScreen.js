@@ -4,14 +4,15 @@ import { Text, Button } from "react-native-elements";
 import { Context as AuthContext } from "../context/AuthContext";
 import { SafeAreaView } from "react-navigation";
 import { Feather } from "@expo/vector-icons";
-
+import { Context as TweetContext } from "../context/TweetContext";
+import MenuHeader from "../components/MenuHeader";
 const ProfileScreen = () => {
-  const { signout } = useContext(AuthContext);
+  const { state } = useContext(TweetContext);
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
+      <MenuHeader user={state.user} />
       <Text>Profile</Text>
-      <Button title="Sign Out" onPress={signout} />
     </SafeAreaView>
   );
 };
