@@ -16,7 +16,10 @@ import NotificationScreen from "./src/screens/NotificationScreen";
 import MessageScreen from "./src/screens/MessageScreen";
 import AddTweetScreen from "./src/screens/AddTweetScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import SingleTweetScreen from "./src/screens/SingleTweetScreen";
 import SignoutScreen from "./src/screens/SignoutScreen";
+
+import { Feather } from "@expo/vector-icons";
 
 import Drawer from "./src/components/Drawer";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
@@ -37,9 +40,25 @@ const DrawerNavigator = createDrawerNavigator(
     contentComponent: Drawer,
   }
 );
+const tweetFlow = createStackNavigator({
+  Tweet: {
+    screen: TweetScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  SingleTweet: {
+    screen: SingleTweetScreen,
+    navigationOptions: {
+      title: "Tweet",
+    },
+  },
+});
+
 const switchNavigator = createSwitchNavigator({
   Auth: AuthScreen,
   AddTweet: AddTweetScreen,
+
   profileFlow: DrawerNavigator,
   loginFlow: createStackNavigator({
     Landing: LandingScreen,
@@ -47,12 +66,45 @@ const switchNavigator = createSwitchNavigator({
     Signin: SigninScreen,
   }),
   mainFlow: createBottomTabNavigator({
-    Tweet: TweetScreen,
-    Search: SearchScreen,
-    Notification: NotificationScreen,
-    Message: MessageScreen,
+    TweetStack: {
+      screen: tweetFlow,
+      navigationOptions: {
+        tabBarOptions: {
+          showLabel: false,
+        },
+        tabBarIcon: <Feather name="home" size={30} color="#636E72" />,
+      },
+    },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        tabBarOptions: {
+          showLabel: false,
+        },
+        tabBarIcon: <Feather name="search" size={30} color="#636E72" />,
+      },
+    },
+    Notification: {
+      screen: NotificationScreen,
+      navigationOptions: {
+        tabBarOptions: {
+          showLabel: false,
+        },
+        tabBarIcon: <Feather name="bell" size={30} color="#636E72" />,
+      },
+    },
+    Message: {
+      screen: MessageScreen,
+      navigationOptions: {
+        tabBarOptions: {
+          showLabel: false,
+        },
+        tabBarIcon: <Feather name="mail" size={30} color="#636E72" />,
+      },
+    },
   }),
 });
+
 const App = createAppContainer(switchNavigator);
 export default () => {
   return (

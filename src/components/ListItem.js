@@ -39,7 +39,7 @@ const ListItem = ({
           }}
         />
       </View>
-      <View style={styles.content}>
+      <View style={styles.rightContainer}>
         <View style={styles.userInfo}>
           <Text style={styles.name}>{name} </Text>
           <Text style={styles.username}>{`@${username}`} </Text>
@@ -94,18 +94,14 @@ const styles = StyleSheet.create({
   avatar: {
     margin: 10,
   },
-  content: {
-    margin: 10,
+  rightContainer: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "stretch",
+    marginTop: 10,
   },
   userInfo: {
-    flex: 1,
     flexDirection: "row",
   },
   content: {
-    flex: 1,
     marginBottom: 10,
     marginRight: 10,
   },
@@ -120,6 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginRight: 70,
+    marginBottom: 10,
   },
 });
 export default ListItem;

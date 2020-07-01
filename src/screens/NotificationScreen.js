@@ -11,12 +11,7 @@ const NotificationScreen = () => {
     </SafeAreaView>
   );
 };
-NotificationScreen.navigationOptions = {
-  tabBarOptions: {
-    showLabel: false,
-  },
-  tabBarIcon: <Feather name="bell" size={30} color="#636E72" />,
-};
+
 const styles = StyleSheet.create({
   container: {},
 });

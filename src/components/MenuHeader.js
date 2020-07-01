@@ -27,7 +27,11 @@ const MenuHeader = ({ user, navigation }) => {
             />
           </TouchableOpacity>
         }
-        centerComponent={<FontAwesome5 name="paw" size={20} color="#1DA1F2" />}
+        centerComponent={
+          <TouchableOpacity onPress={() => navigation.navigate("Tweet")}>
+            <FontAwesome5 name="paw" size={20} color="#1DA1F2" />
+          </TouchableOpacity>
+        }
         rightComponent={<Feather name="star" size={20} color="#1DA1F2" />}
         containerStyle={{
           backgroundColor: "#fff",

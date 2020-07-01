@@ -15,12 +15,6 @@ const MessageScreen = () => {
     </SafeAreaView>
   );
 };
-MessageScreen.navigationOptions = {
-  tabBarOptions: {
-    showLabel: false,
-  },
-  tabBarIcon: <Feather name="mail" size={30} color="#636E72" />,
-};
 const styles = StyleSheet.create({
   container: {},
 });

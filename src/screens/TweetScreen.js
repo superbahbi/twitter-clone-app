@@ -22,9 +22,7 @@ const TweetScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-            // onPress={() =>
-            //   navigation.navigate("TrackDetail", { _id: item._id })
-            // }
+              onPress={() => navigation.navigate("SingleTweet", { item })}
             >
               <ListItem
                 avatar={item.avatar}
@@ -48,13 +46,6 @@ const TweetScreen = ({ navigation }) => {
       </View>
     </>
   );
-};
-TweetScreen.navigationOptions = {
-  headerShown: true,
-  tabBarOptions: {
-    showLabel: false,
-  },
-  tabBarIcon: <Feather name="home" size={30} color="#636E72" />,
 };
 const styles = StyleSheet.create({
   container: {},

@@ -10,12 +10,7 @@ const SearchScreen = () => {
     </SafeAreaView>
   );
 };
-SearchScreen.navigationOptions = {
-  tabBarOptions: {
-    showLabel: false,
-  },
-  tabBarIcon: <Feather name="search" size={30} color="#636E72" />,
-};
+
 const styles = StyleSheet.create({
   container: {},
 });
