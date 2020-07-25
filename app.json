@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "twitter-clone-app",
+    "name": "Twitter",
     "slug": "twitter-clone-app",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
@@ -16,10 +16,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.bahbi.twitterclone",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "permissions": []
+      "package": "com.bahbi.twitterclone",
+      "versionCode": 1,
+      "useNextNotificationsApi": true
     }
   }
 }

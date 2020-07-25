@@ -58,7 +58,6 @@ const TweetScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? 24 : 0,
   },
   card: {
     padding: 0,

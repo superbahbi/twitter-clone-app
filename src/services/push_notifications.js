@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default async () => {
   const PUSH_ENDPOINT = "http://rallycoding.herokuapp.com/api/tokens";
-  let previousToken = await AsyncStorage.removeItem("pushtoken");
+  let previousToken = await AsyncStorage.getItem("pushtoken");
   if (previousToken) {
     return;
   } else {
@@ -17,6 +17,7 @@ export default async () => {
         Permissions.NOTIFICATIONS
       );
       let finalStatus = existingStatus;
+
       if (existingStatus !== "granted") {
         const { status } = await Permissions.askAsync(
           Permissions.NOTIFICATIONS
@@ -28,11 +29,10 @@ export default async () => {
         return;
       }
       token = await Notifications.getExpoPushTokenAsync();
-      console.log(token);
     } else {
       alert("Must use physical device for Push Notifications");
     }
-    // await axios.post(PUSH_ENDPOINT, { token: { token } });
-    AsyncStorage.setItem("pushtoken", token);
+    await axios.post(PUSH_ENDPOINT, { token: { token } });
+    await AsyncStorage.setItem("pushtoken", token.data);
   }
 };
