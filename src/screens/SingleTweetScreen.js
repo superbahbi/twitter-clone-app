@@ -1,33 +1,25 @@
 import React, { useContext } from "react";
 import { Context as TweetContext } from "../context/TweetContext";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Button, Text } from "react-native-elements";
 import ListItem from "../components/ListItem";
-import MenuHeader from "../components/MenuHeader";
+import { View, StyleSheet } from "react-native";
 const SingleTweetScreen = ({ navigation }) => {
   const { state } = useContext(TweetContext);
-  const item = navigation.getParam("item");
-  console.log(item);
+  const data = navigation.getParam("item");
+
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <TouchableOpacity>
-          <ListItem
-            avatar={item.avatar}
-            _id={item._id}
-            userId={item.userId}
-            username={item.username}
-            name={item.name}
-            content={item.content}
-            timestamp={item.timestamp}
-            likes={item.likes}
-            user={state.user}
-          />
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text>Comments here</Text>
-      </View>
+      <ListItem
+        avatar={data.avatar}
+        _id={data._id}
+        userId={data.userId}
+        username={data.username}
+        name={data.name}
+        content={data.content}
+        image={data.img}
+        timestamp={data.timestamp}
+        likes={data.likes}
+        user={state.user}
+      />
     </View>
   );
 };
@@ -37,7 +29,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-
     borderColor: "red",
     borderWidth: 1,
   },

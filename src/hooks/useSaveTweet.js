@@ -3,13 +3,13 @@ import { Context as TweetContext } from "../context/TweetContext";
 import { navigate } from "../navigationRef";
 export default () => {
   const {
-    state: { newTweet },
+    state: { newTweet, newFile },
     createTweet,
     reset,
   } = useContext(TweetContext);
 
   const saveTrack = async () => {
-    await createTweet(newTweet);
+    await createTweet({ newTweet, newFile });
     reset();
     navigate("Tweet");
   };

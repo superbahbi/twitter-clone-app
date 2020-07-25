@@ -1,18 +1,60 @@
-import React, { useContext } from "react";
-import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { Icon, Header, Button, Avatar } from "react-native-elements";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Dimensions,
+  ScrollView,
+  Platform,
+} from "react-native";
+import { Icon, Header, Button, Avatar, Image } from "react-native-elements";
 import { EvilIcons } from "@expo/vector-icons";
 import { Context as TweetContext } from "../context/TweetContext";
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
 import useSaveTweet from "../hooks/useSaveTweet";
 const AddTweetScreen = ({ navigation }) => {
   const {
-    state: { newTweet, user },
+    state: { newTweet, newFile, user },
     createTweet,
     addTweet,
+    addNewFile,
   } = useContext(TweetContext);
+
   const [saveTweet] = useSaveTweet();
+  const [preview, setPreview] = useState({});
+
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+    openImagePickerAsync;
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 5],
+      base64: true,
+    });
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setPreview({ localUri: pickerResult.uri });
+
+    let base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
+
+    addNewFile({
+      file: base64Img,
+      upload_preset: "insert your upload preset here,within quotations",
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header
         barStyle="light-content"
         leftComponent={
@@ -57,13 +99,21 @@ const AddTweetScreen = ({ navigation }) => {
           />
         </View>
       </View>
+      <View>
+        <Image
+          source={{ uri: preview.localUri }}
+          style={styles.image}
+          // PlaceholderContent={<ActivityIndicator />}
+        />
+      </View>
       <View style={{ flex: 1 }}>
         <View style={styles.attachment}>
           <Icon
             name="image"
             type="evilicon"
             color="#517fa4"
-            onPress={() => console.log("hello")}
+            onPress={openImagePickerAsync}
+            value={newFile}
             containerStyle={styles.icon}
             size={40}
           />
@@ -93,12 +143,12 @@ const AddTweetScreen = ({ navigation }) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, paddingTop: Platform.OS === "android" ? 25 : 0 },
   inputContainer: {
     flex: 1,
     flexDirection: "row",
@@ -130,6 +180,9 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 20,
     fontSize: 30,
+  },
+  image: {
+    aspectRatio: 4 / 5,
   },
 });
 export default AddTweetScreen;

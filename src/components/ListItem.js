@@ -1,6 +1,11 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Avatar, Text, Icon } from "react-native-elements";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import { Avatar, Text, Icon, Image } from "react-native-elements";
 import moment from "moment";
 import useDeleteTweet from "../hooks/useDeleteTweet";
 import useLikeTweet from "../hooks/useLikeTweet";
@@ -14,6 +19,7 @@ const ListItem = ({
   timestamp,
   likes,
   user,
+  image,
 }) => {
   const [deleteTweet] = useDeleteTweet();
   const [likeTweet] = useLikeTweet();
@@ -47,6 +53,13 @@ const ListItem = ({
         </View>
         <View style={styles.content}>
           <Text>{content}</Text>
+          {image ? (
+            <Image
+              source={{ uri: image.filename }}
+              style={{ width: "100%", height: 200 }}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+          ) : null}
         </View>
 
         <View style={styles.social}>

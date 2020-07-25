@@ -8,8 +8,10 @@ const tweetReducer = (state, action) => {
       return { ...state, user: action.payload };
     case "add_name":
       return { ...state, newTweet: action.payload };
+    case "new_file":
+      return { ...state, newFile: action.payload };
     case "reset":
-      return { ...state, newTweet: "", refresh: false };
+      return { ...state, newTweet: "", newFile: "", refresh: false };
     default:
       return state;
   }
@@ -27,6 +29,9 @@ const createTweet = (dispatch) => async (content) => {
 };
 const addTweet = (dispatch) => (content) => {
   dispatch({ type: "add_name", payload: content });
+};
+const addNewFile = (dispatch) => (content) => {
+  dispatch({ type: "new_file", payload: content });
 };
 const reset = (dispatch) => () => {
   dispatch({ type: "reset" });
@@ -49,8 +54,9 @@ export const { Context, Provider } = createDataContext(
     createTweet,
     deleteTweet,
     addTweet,
+    addNewFile,
     reset,
     likeTweet,
   },
-  { tweet: [], user: {}, newTweet: ""}
+  { tweet: [], user: {}, newTweet: "", newFile: "" }
 );

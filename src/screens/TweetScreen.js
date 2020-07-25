@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
+import { Platform } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Context as TweetContext } from "../context/TweetContext";
 import ListItem from "../components/ListItem";
 import MenuHeader from "../components/MenuHeader";
-import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { Icon } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 
@@ -11,7 +18,7 @@ const TweetScreen = ({ navigation }) => {
   const { state, fetchTweet, fetchUser } = useContext(TweetContext);
 
   return (
-    <>
+    <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <NavigationEvents onWillFocus={fetchUser} />
       <NavigationEvents onWillFocus={fetchTweet} />
 
@@ -31,6 +38,7 @@ const TweetScreen = ({ navigation }) => {
                 username={item.username}
                 name={item.name}
                 content={item.content}
+                image={item.img}
                 timestamp={item.timestamp}
                 likes={item.likes}
                 user={state.user}
@@ -44,11 +52,14 @@ const TweetScreen = ({ navigation }) => {
           <Icon reverse name="addfile" type="antdesign" color="#1DA1F2" />
         </TouchableOpacity>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? 24 : 0,
+  },
   card: {
     padding: 0,
     margin: 0,
