@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -18,6 +18,7 @@ import AddTweetScreen from "./src/screens/AddTweetScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SingleTweetScreen from "./src/screens/SingleTweetScreen";
 import SignoutScreen from "./src/screens/SignoutScreen";
+import RegisterForNotifications from "./src/services/push_notifications";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -107,6 +108,9 @@ const switchNavigator = createSwitchNavigator({
 
 const App = createAppContainer(switchNavigator);
 export default () => {
+  useEffect(() => {
+    RegisterForNotifications();
+  }, []);
   return (
     <TweetProvider>
       <AuthProvider>

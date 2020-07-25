@@ -6,7 +6,7 @@ export default () => {
   const likeTweetObj = async (_id) => {
     await likeTweet(_id);
     reset();
-    navigate("Tweet");
+    // navigate(nav);
   };
   return [likeTweetObj];
 };
