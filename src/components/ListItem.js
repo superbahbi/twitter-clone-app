@@ -52,11 +52,11 @@ const ListItem = ({
           <Text style={styles.username}>· {moment(timestamp).fromNow()} </Text>
         </View>
         <View style={styles.content}>
-          <Text>{content}</Text>
+          {content ? <Text style={styles.text}>{content}</Text> : null}
           {image ? (
             <Image
               source={{ uri: image.filename }}
-              style={{ width: "100%", height: 200 }}
+              style={styles.image}
               PlaceholderContent={<ActivityIndicator />}
             />
           ) : null}
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flexDirection: "row",
+    marginBottom: 5,
   },
   content: {
     marginBottom: 10,
@@ -130,6 +131,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginRight: 70,
     marginBottom: 10,
+  },
+  text: { marginBottom: 10 },
+  image: {
+    height: 400,
+    borderRadius: 10,
   },
 });
 export default ListItem;

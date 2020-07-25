@@ -27,11 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
-    flex: 1,
-    borderColor: "red",
-    borderWidth: 1,
-  },
 });
 
 export default SingleTweetScreen;
