@@ -6,7 +6,7 @@ import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { Context as AuthContext } from "../context/AuthContext";
 import { DrawerActions } from "react-navigation-drawer";
 import { withNavigation } from "react-navigation";
-const MenuHeader = ({ user, navigation }) => {
+const MenuHeader = ({ user, navigation, title }) => {
   const { profile } = user;
   return (
     <View>
@@ -28,9 +28,13 @@ const MenuHeader = ({ user, navigation }) => {
           </TouchableOpacity>
         }
         centerComponent={
-          <TouchableOpacity onPress={() => navigation.navigate("Tweet")}>
-            <FontAwesome5 name="paw" size={20} color="#1DA1F2" />
-          </TouchableOpacity>
+          title ? (
+            <Text style={styles.text}>{title}</Text>
+          ) : (
+            <TouchableOpacity onPress={() => navigation.navigate("Tweet")}>
+              <FontAwesome5 name="paw" size={20} color="#1DA1F2" />
+            </TouchableOpacity>
+          )
         }
         rightComponent={<Feather name="star" size={20} color="#1DA1F2" />}
         containerStyle={{
@@ -43,5 +47,10 @@ const MenuHeader = ({ user, navigation }) => {
     </View>
   );
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 24,
+    fontWeight: "700",
+  },
+});
 export default withNavigation(MenuHeader);

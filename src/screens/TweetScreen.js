@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   tweet: {
-    //Here is the trick
     position: "absolute",
     width: 50,
     height: 50,

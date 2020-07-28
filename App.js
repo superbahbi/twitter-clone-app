@@ -15,6 +15,8 @@ import TweetScreen from "./src/screens/TweetScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import NotificationScreen from "./src/screens/NotificationScreen";
 import MessageScreen from "./src/screens/MessageScreen";
+import ContactScreen from "./src/screens/ContactScreen";
+import ChatScreen from "./src/screens/ChatScreen";
 import AddTweetScreen from "./src/screens/AddTweetScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SingleTweetScreen from "./src/screens/SingleTweetScreen";
@@ -54,6 +56,24 @@ const tweetFlow = createStackNavigator({
     navigationOptions: {
       title: "Tweet",
     },
+  },
+});
+const messageFlow = createStackNavigator({
+  Message: {
+    screen: MessageScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  Contact: {
+    screen: ContactScreen,
+    navigationOptions: {
+      title: "New message",
+    },
+  },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: { headerShown: true },
   },
 });
 
@@ -96,7 +116,7 @@ const switchNavigator = createSwitchNavigator({
       },
     },
     Message: {
-      screen: MessageScreen,
+      screen: messageFlow,
       navigationOptions: {
         tabBarOptions: {
           showLabel: false,

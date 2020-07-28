@@ -9,10 +9,10 @@ const SearchScreen = () => {
   const { state } = useContext(TweetContext);
 
   return (
-    <SafeAreaView forceInset={{ top: "always" }}>
+    <View>
       <MenuHeader user={state.user} />
       <Text>SearchScreen</Text>
-    </SafeAreaView>
+    </View>
   );
 };
 
