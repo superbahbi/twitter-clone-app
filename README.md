@@ -10,7 +10,7 @@ Welcome Page               |  Login Page               | Signup Page            
 To work with this project locally, first install all dependecies:
 1. Clone the repo
 ```sh
-git clone https://github.com/your_username_/Project-Name.git
+git clone https://github.com/superbahbi/twitter-clone-app.git
 ```
 2. Install NPM packages
 ```sh
