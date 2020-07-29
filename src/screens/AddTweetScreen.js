@@ -12,8 +12,6 @@ import { Icon, Header, Button, Avatar, Image } from "react-native-elements";
 import { EvilIcons } from "@expo/vector-icons";
 import { Context as TweetContext } from "../context/TweetContext";
 import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
-import * as Permissions from "expo-permissions";
 import useSaveTweet from "../hooks/useSaveTweet";
 const AddTweetScreen = ({ navigation }) => {
   const {

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Platform } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Context as TweetContext } from "../context/TweetContext";
 import ListItem from "../components/ListItem";
@@ -12,7 +11,6 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { Feather } from "@expo/vector-icons";
 
 const TweetScreen = ({ navigation }) => {
   const { state, fetchTweet, fetchUser } = useContext(TweetContext);
