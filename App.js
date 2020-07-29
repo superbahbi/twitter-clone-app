@@ -28,7 +28,7 @@ import { Feather } from "@expo/vector-icons";
 import Drawer from "./src/components/Drawer";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as TweetProvider } from "./src/context/TweetContext";
-
+import { Provider as MessageProvider } from "./src/context/MessageContext";
 const DrawerNavigator = createDrawerNavigator(
   {
     Profile: ProfileScreen,
@@ -163,14 +163,16 @@ export default () => {
     };
   }, []);
   return (
-    <TweetProvider>
-      <AuthProvider>
-        <App
-          ref={(navigator) => {
-            setNavigator(navigator);
-          }}
-        />
-      </AuthProvider>
-    </TweetProvider>
+    <MessageProvider>
+      <TweetProvider>
+        <AuthProvider>
+          <App
+            ref={(navigator) => {
+              setNavigator(navigator);
+            }}
+          />
+        </AuthProvider>
+      </TweetProvider>
+    </MessageProvider>
   );
 };

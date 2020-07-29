@@ -1,19 +1,19 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
-
+import { Context as MessageContext } from "../context/MessageContext";
+import useMakeChatRoom from "../hooks/useMakeChatRoom";
 const ChatScreen = ({ navigation }) => {
   const [messages, setMessages] = useState([]);
+  const receiverData = navigation.getParam("data");
+  const [makeChatRoom] = useMakeChatRoom();
+  console.log("data", receiverData);
+  const { createChatRoom } = useContext(MessageContext);
+  // make a chatroom
+  // createChatRoom(receiverData._id);
 
-  const data = navigation.getParam("data");
-  console.log("data", data);
   useEffect(() => {
-    // navigation.setOptions({ title: "test" });
+    makeChatRoom(receiverData._id);
     setMessages([
       {
         _id: 1,
