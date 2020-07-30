@@ -29,21 +29,6 @@ import Drawer from "./src/components/Drawer";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as TweetProvider } from "./src/context/TweetContext";
 import { Provider as MessageProvider } from "./src/context/MessageContext";
-const DrawerNavigator = createDrawerNavigator(
-  {
-    Profile: ProfileScreen,
-    List: { screen: TweetScreen },
-    Topics: { screen: TweetScreen },
-    Bookmarks: { screen: TweetScreen },
-    Moments: { screen: TweetScreen },
-    "Sign Out": SignoutScreen,
-  },
-  {
-    drawerWidth: 300,
-    drawerPosition: "left",
-    contentComponent: Drawer,
-  }
-);
 const tweetFlow = createStackNavigator({
   Tweet: {
     screen: TweetScreen,
@@ -77,54 +62,70 @@ const messageFlow = createStackNavigator({
   },
 });
 
+const BottomTabNavigator = createBottomTabNavigator({
+  TweetStack: {
+    screen: tweetFlow,
+    navigationOptions: {
+      tabBarOptions: {
+        showLabel: false,
+      },
+      tabBarIcon: <Feather name="home" size={30} color="#636E72" />,
+    },
+  },
+  Search: {
+    screen: SearchScreen,
+    navigationOptions: {
+      tabBarOptions: {
+        showLabel: false,
+      },
+      tabBarIcon: <Feather name="search" size={30} color="#636E72" />,
+    },
+  },
+  Notification: {
+    screen: NotificationScreen,
+    navigationOptions: {
+      tabBarOptions: {
+        showLabel: false,
+      },
+      tabBarIcon: <Feather name="bell" size={30} color="#636E72" />,
+    },
+  },
+  Message: {
+    screen: messageFlow,
+    navigationOptions: {
+      tabBarOptions: {
+        showLabel: false,
+      },
+      tabBarIcon: <Feather name="mail" size={30} color="#636E72" />,
+    },
+  },
+});
+const DrawerNavigator = createDrawerNavigator(
+  {
+    Home: BottomTabNavigator,
+    Profile: { screen: ProfileScreen },
+    List: { screen: TweetScreen },
+    Bookmarks: { screen: TweetScreen },
+    Moments: { screen: TweetScreen },
+    "Sign Out": SignoutScreen,
+  },
+  {
+    drawerWidth: 300,
+    drawerPosition: "left",
+    contentComponent: Drawer,
+  }
+);
 const switchNavigator = createSwitchNavigator({
   Auth: AuthScreen,
   AddTweet: AddTweetScreen,
 
-  profileFlow: DrawerNavigator,
+  // profileFlow: DrawerNavigator,
   loginFlow: createStackNavigator({
     Landing: LandingScreen,
     Signup: SignupScreen,
     Signin: SigninScreen,
   }),
-  mainFlow: createBottomTabNavigator({
-    TweetStack: {
-      screen: tweetFlow,
-      navigationOptions: {
-        tabBarOptions: {
-          showLabel: false,
-        },
-        tabBarIcon: <Feather name="home" size={30} color="#636E72" />,
-      },
-    },
-    Search: {
-      screen: SearchScreen,
-      navigationOptions: {
-        tabBarOptions: {
-          showLabel: false,
-        },
-        tabBarIcon: <Feather name="search" size={30} color="#636E72" />,
-      },
-    },
-    Notification: {
-      screen: NotificationScreen,
-      navigationOptions: {
-        tabBarOptions: {
-          showLabel: false,
-        },
-        tabBarIcon: <Feather name="bell" size={30} color="#636E72" />,
-      },
-    },
-    Message: {
-      screen: messageFlow,
-      navigationOptions: {
-        tabBarOptions: {
-          showLabel: false,
-        },
-        tabBarIcon: <Feather name="mail" size={30} color="#636E72" />,
-      },
-    },
-  }),
+  mainFlow: DrawerNavigator,
 });
 
 const App = createAppContainer(switchNavigator);
