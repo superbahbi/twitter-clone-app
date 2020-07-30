@@ -9,6 +9,7 @@ import { Avatar, Text, Icon, Image } from "react-native-elements";
 import moment from "moment";
 import useDeleteTweet from "../hooks/useDeleteTweet";
 import useLikeTweet from "../hooks/useLikeTweet";
+import { EvilIcons, AntDesign } from "@expo/vector-icons";
 const ListItem = ({
   avatar,
   _id,
@@ -63,31 +64,31 @@ const ListItem = ({
         </View>
 
         <View style={styles.social}>
-          <Icon
-            name="comment"
-            type="evilicon"
+          <AntDesign
+            name="message1"
+            size={16}
             color="darkgrey"
             onPress={() => console.log("hello")}
           />
-          <Icon
+          <AntDesign
             name="retweet"
-            type="evilicon"
+            size={16}
             color="darkgrey"
             onPress={() => console.log("hello")}
           />
           <TouchableOpacity onPress={() => likeTweet(_id)}>
-            <Icon
-              name="heart"
-              type="evilicon"
-              color={userlike(likes) ? "red" : "darkgrey"}
-            />
+            {userlike(likes) ? (
+              <AntDesign name={"heart"} size={16} color={"rgb(224, 36, 94)"} />
+            ) : (
+              <AntDesign name={"hearto"} size={16} color="darkgrey" />
+            )}
           </TouchableOpacity>
           <TouchableOpacity>
-            <Icon name="share-google" type="evilicon" color="darkgrey" />
+            <AntDesign name="sharealt" size={16} color="darkgrey" />
           </TouchableOpacity>
           {userId === user._id ? (
             <TouchableOpacity onPress={() => deleteTweet(_id)}>
-              <Icon name="trash" type="evilicon" color="darkgrey" />
+              <AntDesign name="trash" type="evilicon" color="darkgrey" />
             </TouchableOpacity>
           ) : null}
         </View>
