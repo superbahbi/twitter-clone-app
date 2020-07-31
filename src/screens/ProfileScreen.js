@@ -1,16 +1,24 @@
 import React, { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { NavigationEvents } from "react-navigation";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { Text, Image, Avatar, Divider } from "react-native-elements";
 import { EvilIcons, Feather, MaterialIcons } from "@expo/vector-icons";
+import ListItem from "../components/ListItem";
 import moment from "moment";
 import { Context as TweetContext } from "../context/TweetContext";
 const ProfileScreen = () => {
-  const { state } = useContext(TweetContext);
+  const { state, fetchProfileTweet } = useContext(TweetContext);
   const { profile, username, followers, following } = state.user;
-  console.log(state.user);
+
   return (
-    <View>
-      {/* <MenuHeader user={state.user} /> */}
+    <ScrollView>
+      <NavigationEvents onWillFocus={() => fetchProfileTweet(username)} />
       <Image
         source={{ uri: profile ? profile.cover.filename : null }}
         style={styles.cover}
@@ -43,7 +51,31 @@ const ProfileScreen = () => {
         </Text>
       </View>
       <Divider />
-    </View>
+      <FlatList
+        data={state.tweet}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SingleTweet", { item })}
+            >
+              <ListItem
+                avatar={item.avatar}
+                _id={item._id}
+                userId={item.userId}
+                username={item.username}
+                name={item.name}
+                content={item.content}
+                image={item.img}
+                timestamp={item.timestamp}
+                likes={item.likes}
+                user={state.user}
+              />
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </ScrollView>
   );
 };
 ProfileScreen.navigationOptions = {
@@ -57,16 +89,6 @@ const styles = StyleSheet.create({
   cover: {
     width: "100%",
     height: 100,
-    // background-position: 0 50%;
-    // background-size: 100% auto;
-    // border-bottom: 1px solid #e1e8ed;
-    // border-radius: 2px 2px 0 0;
-    // width: 100%;
-    // height: auto;
-    // max-height: 200px;
-    // object-fit: cover;
-    // display: block !important;
-    // z-index: 0;
   },
   avatar: {
     marginLeft: 20,

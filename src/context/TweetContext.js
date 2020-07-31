@@ -45,7 +45,11 @@ const likeTweet = (dispatch) => async (_id) => {
   const response = await tweetApi.post("/tweet/like", { _id });
   dispatch({ type: "fetch_tweet", payload: response.data });
 };
-
+const fetchProfileTweet = (dispatch) => async (username) => {
+  console.log(username);
+  const response = await tweetApi.get("/tweet/" + username);
+  dispatch({ type: "fetch_tweet", payload: response.data });
+};
 export const { Context, Provider } = createDataContext(
   tweetReducer,
   {
@@ -57,6 +61,7 @@ export const { Context, Provider } = createDataContext(
     addNewFile,
     reset,
     likeTweet,
+    fetchProfileTweet,
   },
   { tweet: [], user: {}, newTweet: "", newFile: "" }
 );
