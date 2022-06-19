@@ -2,7 +2,11 @@
   "expo": {
     "name": "Twitter",
     "slug": "twitter-clone-app",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/paw-solid-white-64.png",
@@ -14,7 +18,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.bahbi.twitterclone",
       "buildNumber": "1.0.0",

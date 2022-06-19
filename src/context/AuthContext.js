@@ -31,6 +31,7 @@ const clearErrorMessage = (dispatch) => () => {
 };
 const signup = (dispatch) => async ({ username, password, email, name }) => {
   try {
+    console.log(response)
     const response = await tweetApi.post("/signup", {
       username,
       password,
@@ -51,6 +52,7 @@ const signup = (dispatch) => async ({ username, password, email, name }) => {
 const signin = (dispatch) => async ({ username, password }) => {
   try {
     const response = await tweetApi.post("/signin", { username, password });
+    console.log(response)
     await AsyncStorage.setItem("token", response.data.token);
     dispatch({ type: "signin", payload: response.data.token });
     navigate("Tweet");
