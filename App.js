@@ -5,7 +5,6 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { setNavigator } from "./src/navigationRef";
-import * as Notifications from "expo-notifications";
 
 import LandingScreen from "./src/screens/LandingScreen";
 import SigninScreen from "./src/screens/SigninScreen";
@@ -21,7 +20,6 @@ import AddTweetScreen from "./src/screens/AddTweetScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SingleTweetScreen from "./src/screens/SingleTweetScreen";
 import SignoutScreen from "./src/screens/SignoutScreen";
-import RegisterForNotifications from "./src/services/push_notifications";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -130,39 +128,7 @@ const switchNavigator = createSwitchNavigator({
 
 const App = createAppContainer(switchNavigator);
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
-
 export default () => {
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-  useEffect(() => {
-    RegisterForNotifications();
-    // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
-      }
-    );
-
-    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log(response);
-      }
-    );
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
-  }, []);
   return (
     <MessageProvider>
       <TweetProvider>
