@@ -1,6 +1,7 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import tweetApi from "../api/tweetApi";
+import formurlencoded from "form-urlencoded";
 import { navigate } from "../navigationRef";
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -29,41 +30,54 @@ const tryLocalSignin = (dispatch) => async () => {
 const clearErrorMessage = (dispatch) => () => {
   dispatch({ type: "clear_error_message" });
 };
-const signup = (dispatch) => async ({ username, password, email, name }) => {
-  try {
-    console.log(response)
-    const response = await tweetApi.post("/signup", {
-      username,
-      password,
-      email,
-      name,
-    });
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
-    navigate("Tweet");
-  } catch (err) {
-    dispatch({
-      type: "add_error",
-      payload: "Something went wrong with sign up",
-    });
-  }
-};
+const signup =
+  (dispatch) =>
+  async ({ username, password, email, name }) => {
+    try {
+      console.log(response);
+      const response = await tweetApi.post(
+        "/api/signup",
+        formurlencoded({
+          username,
+          password,
+          email,
+          name,
+        })
+      );
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signin", payload: response.data.token });
+      navigate("Tweet");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with sign up",
+      });
+    }
+  };
 
-const signin = (dispatch) => async ({ username, password }) => {
-  try {
-    const response = await tweetApi.post("/signin", { username, password });
-    console.log(response)
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
-    navigate("Tweet");
-  } catch (err) {
-    console.log(err);
-    dispatch({
-      type: "add_error",
-      payload: "Something went wrong with sign in",
-    });
-  }
-};
+const signin =
+  (dispatch) =>
+  async ({ username, password }) => {
+    try {
+      const response = await tweetApi.post(
+        "/api/login",
+        formurlencoded({
+          username,
+          password,
+        })
+      );
+      console.log(response.data);
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signin", payload: response.data.token });
+      navigate("Tweet");
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with sign in",
+      });
+    }
+  };
 
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
