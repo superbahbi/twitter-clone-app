@@ -34,7 +34,6 @@ const signup =
   (dispatch) =>
   async ({ username, password, email, name }) => {
     try {
-      console.log(response);
       const response = await tweetApi.post(
         "/api/signup",
         formurlencoded({
@@ -66,9 +65,12 @@ const signin =
           password,
         })
       );
-      console.log(response.data);
       await AsyncStorage.setItem("token", response.data.token);
-      dispatch({ type: "signin", payload: response.data.token });
+      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+      dispatch({
+        type: "signin",
+        payload: { token: response.data.token, user: response.data.user },
+      });
       navigate("Tweet");
     } catch (err) {
       console.log(err);
@@ -89,5 +91,5 @@ const signout = (dispatch) => async () => {
 export const { Provider, Context } = createDataContext(
   authReducer,
   { signup, signin, signout, clearErrorMessage, tryLocalSignin },
-  { token: null, errorMessage: "" }
+  { token: null, user: null, errorMessage: "" }
 );

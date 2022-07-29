@@ -17,7 +17,7 @@ const tweetReducer = (state, action) => {
   }
 };
 const fetchTweet = (dispatch) => async () => {
-  const response = await tweetApi.get("/tweet");
+  const response = await tweetApi.get("/api/tweet");
   dispatch({ type: "fetch_tweet", payload: response.data });
 };
 const fetchUser = (dispatch) => async () => {

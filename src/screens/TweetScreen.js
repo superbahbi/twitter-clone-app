@@ -1,28 +1,33 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext } from "react";
-import { NavigationEvents } from "react-navigation";
-import { Context as TweetContext } from "../context/TweetContext";
-import ListItem from "../components/ListItem";
-import MenuHeader from "../components/MenuHeader";
 import {
-  View,
   FlatList,
+  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
+  View,
 } from "react-native";
 import { Icon } from "react-native-elements";
+import { NavigationEvents } from "react-navigation";
+import ListItem from "../components/ListItem";
+import MenuHeader from "../components/MenuHeader";
+import { Context as AuthContext } from "../context/AuthContext";
+import { Context as TweetContext } from "../context/TweetContext";
 
-const TweetScreen = ({ navigation }) => {
-  const { state, fetchTweet, fetchUser } = useContext(TweetContext);
-
+const TweetScreen = async ({ navigation }) => {
+  const { state: tweetState, fetchTweet, fetchUser } = useContext(TweetContext);
+  const { state: authState, signout } = useContext(AuthContext);
+  // console.log(authState.user);
+  // await AsyncStorage.removeItem("token");
+  // await AsyncStorage.removeItem("user");
   return (
     <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
-      <NavigationEvents onWillFocus={fetchUser} />
+      {/* <NavigationEvents onWillFocus={fetchUser} /> */}
       <NavigationEvents onWillFocus={fetchTweet} />
 
-      <MenuHeader user={state.user} />
+      {/* <MenuHeader user={authState.user} />
       <FlatList
-        data={state.tweet}
+        data={tweetState.tweet}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
@@ -39,17 +44,17 @@ const TweetScreen = ({ navigation }) => {
                 image={item.img}
                 timestamp={item.timestamp}
                 likes={item.likes}
-                user={state.user}
+                user={authState.user}
               />
             </TouchableOpacity>
           );
         }}
-      />
-      <View style={styles.tweet}>
+      /> */}
+      {/* <View style={styles.tweet}>
         <TouchableOpacity onPress={() => navigation.navigate("AddTweet")}>
           <Icon reverse name="addfile" type="antdesign" color="#1DA1F2" />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
